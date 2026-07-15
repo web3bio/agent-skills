@@ -1,110 +1,125 @@
 # Web3.bio Agent Skills
 
-This repository provides **Agent Skills** for the Web3.bio APIs. It standardizes routing, authentication boundaries, response-shell rules, and endpoint references to reduce incorrect calls and secret leakage.
+Agent Skill for calling [`https://api.web3.bio`](https://api.web3.bio): profiles, NS, credentials, avatar, domain, batch, and wallet identity—with fixed routing and auth boundaries.
 
-## Capability Overview
+## Install
 
-| Scenario                     | Behavior                                                |
-| ---------------------------- | ------------------------------------------------------- |
-| Credential / credit          | `GET credential/{identity}` (do not resolve `platform`) |
-| Wallet identity              | `GET wallet/{identity}` (**requires** `x-api-key`)      |
-| Avatar URL                   | `GET avatar/{identity}` (use `Location`; no image bytes) |
-| Domain metadata (WHOIS-style)| `GET domain/{identity}`                                 |
-| Batch full / NS              | `GET profile/batch/{ids}` · `GET ns/batch/{ids}`        |
-| Single-platform full profile | `GET profile/{platform}/{identity}`                     |
-| Single-platform NS brief     | `GET ns/{platform}/{identity}`                          |
-| Universal full profile       | `GET profile/{identity}`                                |
-| Universal NS                 | `GET ns/{identity}`                                     |
+**Recommended** (Skills CLI, all detected agents):
 
-- **Method**: all routes are `GET`; path segments must be URL-encoded (`encodeURIComponent`).
-- **Auth**: only the wallet route may include `x-api-key`; all other routes must omit it.
-- **Machine-readable routing source of truth**: `references/routing-manifest.json`.
+```bash
+npx skills add web3bio/agent-skills -g -y
+```
 
-## Repository Structure
+What this does:
+
+- Clones `web3bio/agent-skills`, installs the only skill `web3bio-skills`
+- Writes to `~/.agents/skills/web3bio-skills`
+- Registers it for **all agents the CLI detects** on your machine (omit `-a` = same as targeting every detected agent)
+- `-g` = user/global scope; `-y` = non-interactive
+
+Other useful variants:
+
+| Goal | Command |
+|------|---------|
+| Cursor only | `npx skills add web3bio/agent-skills -g -a cursor -y` |
+| Explicit all agents | `npx skills add web3bio/agent-skills -g -a '*' -y` (quote `*` so the shell does not expand it) |
+| List skills in the repo (no install) | `npx skills add web3bio/agent-skills -l` |
+| Project scope (current project only) | omit `-g` (run inside that project) |
+
+**Manual** (no CLI) — copy the **skill package**, not the git root:
+
+```bash
+git clone https://github.com/web3bio/agent-skills.git
+mkdir -p ~/.agents/skills
+cp -R agent-skills/web3bio-skills ~/.agents/skills/web3bio-skills
+```
+
+Requirements:
+
+- Installed folder name **must** be `web3bio-skills` (matches `name` in `SKILL.md`)
+- That folder must contain `SKILL.md` at its root (not one level deeper)
+- Do **not** point the agent at the git repo root (`agent-skills/`) as the skill
+
+Start a **new** agent chat after install (reload alone may not pick up new skills).
+
+### Verify
+
+```bash
+npx skills-ref validate ~/.agents/skills/web3bio-skills
+npx skills list -g
+```
+
+You should see `web3bio-skills` under Global Skills. Then ask: `Profile for vitalik.eth` or `Avatar for sujiyan.eth`.
+
+## Quick start (usage)
+
+| You ask                             | Skill routes to                                  |
+| ----------------------------------- | ------------------------------------------------ |
+| Profile / who is `vitalik.eth`      | `GET /profile/{identity}` (or platform-specific) |
+| Credentials / trust for an identity | `GET /credential/{identity}`                     |
+| Avatar / PFP URL                    | `GET /avatar/{identity}`                         |
+| Domain owner / expiry               | `GET /domain/{identity}`                         |
+| Several identities at once          | `GET /profile/batch/{ids}` or `/ns/batch/{ids}`  |
+| Wallet identity bundle              | `GET /wallet/{identity}` (needs `x-api-key`)     |
+
+Worked examples: [`web3bio-skills/examples.md`](web3bio-skills/examples.md).
+
+## Capability overview
+
+| Scenario                  | Behavior                                                  |
+| ------------------------- | --------------------------------------------------------- |
+| Credential / credit       | `GET credential/{identity}`                               |
+| Wallet identity           | `GET wallet/{identity}` (**requires** `x-api-key`)        |
+| Avatar URL                | `GET avatar/{identity}` (`Location` only; no image bytes) |
+| Domain metadata           | `GET domain/{identity}`                                   |
+| Batch full / NS           | `GET profile/batch/{ids}` · `GET ns/batch/{ids}`          |
+| Single-platform full / NS | `GET profile\|ns/{platform}/{identity}`                   |
+| Universal full / NS       | `GET profile\|ns/{identity}`                              |
+
+- Method: all `GET`; path segments URL-encoded.
+- Auth: only wallet may send `x-api-key`.
+- Source of truth: `web3bio-skills/references/routing-manifest.json`.
+
+## Repository layout
 
 ```
 .
-|- SKILL.md                 # Core skill: triggers, order, extraction, request/response discipline
-|- README.md                # This file
-|- reference.md             # Index for references/ (open only what is needed)
-|- AGENTS.md                # Guidance for AI agents editing this repo
-|- CONTRIBUTING.md          # Contribution and review checklist
-|- SECURITY.md              # Threat model and disclosure workflow
-|- CHANGELOG.md             # Versioned change history
-|- _meta.json               # Skill package metadata
-|- LICENSE                  # MIT
-|- references/              # Endpoint docs, intent cues, regex patterns, response format, test cases
+|- README.md                 # Humans: install + overview
+|- AGENTS.md / CONTRIBUTING.md / SECURITY.md / CHANGELOG.md
+|- package.json
+|- web3bio-skills/           # ← installable skill (name == directory)
+|  |- SKILL.md
+|  |- reference.md
+|  |- examples.md
+|  |- _meta.json
+|  |- references/
 ```
 
-## Document Map
+## Decision order (first match wins)
 
-| File              | Audience             | Purpose                                                          |
-| ----------------- | -------------------- | ---------------------------------------------------------------- |
-| `SKILL.md`        | Runtime agents       | Activation rules, decision order, security and trust constraints |
-| `reference.md`    | Runtime agents       | Single index for all `references/*` pages                        |
-| `README.md`       | Humans / integrators | Install, compatibility, FAQ, maintenance overview                |
-| `AGENTS.md`       | AI editors           | In-repo guardrails and sync requirements                         |
-| `CONTRIBUTING.md` | Human contributors   | PR flow and reviewer checklist                                   |
-| `SECURITY.md`     | Everyone             | Threat model and vulnerability reporting                         |
-| `CHANGELOG.md`    | Maintainers / users  | Versioned changes                                                |
-| `_meta.json`      | Tooling / installers | Name and version metadata                                        |
-
-## Installation (Cursor and compatible clients)
-
-1. Place the skill directory where your client discovers skills (must contain `SKILL.md`), for example:
-   - Personal: `~/.cursor/skills/web3bio-skills/`
-   - Project: `<project>/.cursor/skills/web3bio-skills/`
-2. Reload the client/editor so the model can discover the skill from YAML metadata and trigger terms.
-3. If your toolchain supports commands like `npx skills add <org/repo>`, publish this repository first and follow your client's install instructions.
-
-### Naming Notes
-
-The directory name can differ from the repository name, but `SKILL.md` must be at the loaded skill root. Keeping `web3bio-skills` is recommended for consistency with `_meta.json`.
-
-## Runtime Reading Order
-
-1. Read `SKILL.md`.
-2. Read `reference.md`.
-3. Open only the specific `references/*` files required for the current request.
-
-## Routing Workflow (First Match Wins)
-
-1. **Credential** → `GET credential/{identity}`
-2. **Wallet** → `GET wallet/{identity}` (without key: output only the fixed key-request line and do not call)
-3. **Avatar** → `GET avatar/{identity}` (report `Location` URL; do not download image bytes)
-4. **Domain** → `GET domain/{identity}`
-5. **Batch** → `GET profile/batch/{ids}` or `GET ns/batch/{ids}`
-6. **Profile branch** → universal vs NS and single-platform vs universal using intent + `platform-routing` / `references/regex-patterns.md`
-
-Intent and anti-intent cues are documented in `references/intent-cues.md`.
+1. Credential → 2. Wallet → 3. Avatar → 4. Domain → 5. Batch → 6. Profile / NS
 
 ## FAQ
 
-| Symptom                                          | Action                                                        |
-| ------------------------------------------------ | ------------------------------------------------------------- |
-| Wallet request targets a non-Web3.bio host       | Only `https://api.web3.bio` is allowed (see `SECURITY.md`)    |
-| Wallet call attempted without key                | Forbidden; output only the fixed one-line key request         |
-| `x-api-key` used on credential/profile/ns routes | Forbidden; remove the header                                  |
-| Avatar reply contains image binary               | Forbidden; use `Location` / redirect URL only                 |
-| Batch platform unsupported (e.g. solana)         | Exclude from batch; use single-identity profile flow          |
-| Universal response `platform:` is unclear        | Use first match in `platform-routing.md`, else `none`         |
-| Single-platform URL cannot determine platform    | Do not fabricate; ask for clarification or use universal flow |
-| Routing behavior uncertain after edits           | Run smoke scenarios from `references/test-cases.md`           |
+| Symptom                                | Action                                                                                                                |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `skills list` shows nothing            | Use `npx skills list -g` for global installs                                                                          |
+| `skills-ref` fails on repo root        | Validate `./web3bio-skills` (or the installed path), not the git root                                                 |
+| Manual `cp .../web3bio-skills` missing | Publish/pull the nested layout first; older flat releases: copy the clone itself to `~/.agents/skills/web3bio-skills` |
+| Skill not triggering                   | New chat after install; mention address/domain keywords                                                               |
+| Wrong install folder name              | Must be `web3bio-skills`, not `agent-skills`                                                                          |
+| Wallet without key                     | Agent outputs only: `Please provide x-api-key (wallet endpoint only).`                                                |
+| Avatar dumps binary                    | Forbidden—use `Location` URL only                                                                                     |
 
-## Security and Compliance
+## Security
 
-- Use only `https://api.web3.bio`.
-- Never commit or expose user API keys.
-- For wallet responses, follow the strict shell format in `references/response-format.md`.
+- Host: only `https://api.web3.bio`.
+- Never commit API keys. See [SECURITY.md](SECURITY.md).
 
-See `SKILL.md` and `SECURITY.md` for full constraints.
+## Maintainers
 
-## Maintenance Checklist
+Route changes: update `web3bio-skills/references/routing-manifest.json`, `web3bio-skills/reference.md`, and affected pages together. Bump `web3bio-skills/_meta.json` + [CHANGELOG.md](CHANGELOG.md) on release.
 
-- Route behavior changes: update `references/routing-manifest.json`, `reference.md`, and affected `references/*.md` together.
-- Platform matching changes: update both `references/regex-patterns.md` and `references/platform-routing.md`.
-- Behavior-visible updates: record in `CHANGELOG.md` and bump `_meta.json` version for releases.
+## License
 
-## License and Terms
-
-Repository documentation/config is licensed under [MIT](LICENSE). Use of `https://api.web3.bio` remains subject to Web3.bio API terms and limits.
+MIT for this repository. API use follows Web3.bio terms.

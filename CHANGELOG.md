@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0 — 2026-07-15
+
+### Agent-visible / packaging
+
+- Moved the installable skill into `web3bio-skills/` so directory name matches frontmatter `name` (`skills-ref validate` passes).
+- Rewrote install docs for `npx skills add web3bio/agent-skills` and `~/.agents/skills/` (not outdated `~/.cursor/skills/`-only paths).
+- Stronger `description` triggers; added `license`, `compatibility`.
+- Slimmed `SKILL.md` (removed editor Maintenance section); added `examples.md`.
+- Softened “must read all docs first” friction—agents can call from decision order, opening references on demand.
+
 ## 0.2.0 — 2026-07-15
 
 ### Agent-visible

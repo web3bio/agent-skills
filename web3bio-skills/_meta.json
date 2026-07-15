@@ -1,0 +1,6 @@
+{
+  "name": "web3bio-skills",
+  "version": "0.3.0",
+  "description": "Agent skill for Web3.bio Profile API: profile, NS, credential, avatar, domain, batch, and wallet routing.",
+  "base_url": "https://api.web3.bio"
+}

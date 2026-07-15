@@ -1,7 +1,7 @@
 {
-  "name": "web3bio-skills",
-  "version": "0.2.0",
-  "description": "Agent skills for Web3.bio APIs: profile, NS, credential, avatar, domain, batch, wallet routing and response shell.",
+  "name": "web3bio-agent-skills",
+  "version": "0.3.0",
+  "description": "Repository for the web3bio-skills Agent Skill (Web3.bio Profile API).",
   "keywords": [
     "web3bio",
     "profile",
@@ -12,13 +12,14 @@
     "identity",
     "web3-identity",
     "agent-skill",
-    "web3domains",
     "cursor"
   ],
   "skill": {
-    "entry": "SKILL.md",
-    "references_index": "reference.md",
-    "routing_manifest": "references/routing-manifest.json"
+    "name": "web3bio-skills",
+    "path": "web3bio-skills",
+    "entry": "web3bio-skills/SKILL.md",
+    "references_index": "web3bio-skills/reference.md",
+    "routing_manifest": "web3bio-skills/references/routing-manifest.json"
   },
   "author": {
     "name": "Web3.bio",

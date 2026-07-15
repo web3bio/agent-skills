@@ -4,18 +4,22 @@ Instructions for AI coding agents working **in this repository** (not for end-us
 
 ## What this repo is
 
-A single **Agent Skill** for calling `https://api.web3.bio` (profiles, credentials, NS summaries, avatar, domain, batch, wallet). Source of truth order:
+A git repo that **publishes one Agent Skill** in [`web3bio-skills/`](web3bio-skills/) for `https://api.web3.bio`.
 
-1. [`references/routing-manifest.json`](references/routing-manifest.json)
-2. [`SKILL.md`](SKILL.md) (intent order, field extraction, response discipline)
-3. Per-topic files under [`references/`](references/) linked from [`reference.md`](reference.md)
+Source of truth order (inside the skill package):
+
+1. [`web3bio-skills/references/routing-manifest.json`](web3bio-skills/references/routing-manifest.json)
+2. [`web3bio-skills/SKILL.md`](web3bio-skills/SKILL.md)
+3. Pages under [`web3bio-skills/references/`](web3bio-skills/references/) linked from [`web3bio-skills/reference.md`](web3bio-skills/reference.md)
+
+**Spec constraint**: the skill directory name must equal frontmatter `name` (`web3bio-skills`). Do not move `SKILL.md` back to the git root.
 
 ## Before you change behavior
 
-- Read [`SKILL.md`](SKILL.md) and the specific `references/*.md` you touch; avoid loading all reference files at once.
-- If you change route templates, auth, or priority: update **both** `routing-manifest.json` and [`reference.md`](reference.md), and any affected endpoint page.
-- If you change platform matching: update [`references/regex-patterns.md`](references/regex-patterns.md) and [`references/platform-routing.md`](references/platform-routing.md) together.
-- After trigger or routing edits: reconcile [`references/intent-cues.md`](references/intent-cues.md) and [`references/test-cases.md`](references/test-cases.md).
+- Read `web3bio-skills/SKILL.md` and only the `references/*.md` you touch.
+- Route / auth / priority changes: update **both** `routing-manifest.json` and `reference.md`, plus affected endpoint pages.
+- Platform matching: update `regex-patterns.md` and `platform-routing.md` together.
+- Trigger / routing edits: reconcile `intent-cues.md`, `test-cases.md`, and `examples.md`.
 
 ## Security defaults (do not regress)
 
@@ -23,8 +27,15 @@ A single **Agent Skill** for calling `https://api.web3.bio` (profiles, credentia
 - Never document or implement sending that header elsewhere.
 - Do not add instructions that echo user API keys or commit them to the repo.
 
+## Validate before PR
+
+```bash
+npx skills-ref validate ./web3bio-skills
+npx skills add . -l
+```
+
 ## Human-oriented docs
 
 - Onboarding and install: [`README.md`](README.md)
-- Contributing checklist: [`CONTRIBUTING.md`](CONTRIBUTING.md)
-- Vulnerability reporting: [`SECURITY.md`](SECURITY.md)
+- Contributing: [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- Security: [`SECURITY.md`](SECURITY.md)

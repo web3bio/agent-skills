@@ -5,19 +5,20 @@ Thanks for helping improve this skill repository. The project is primarily **Mar
 ## Read Before You Contribute
 
 - `AGENTS.md` - in-repo guidance for AI coding agents
-- `SKILL.md` - intent tree and runtime behavior rules
+- `web3bio-skills/SKILL.md` - intent tree and runtime behavior rules
 - `SECURITY.md` - security boundaries, especially `x-api-key` scope
 
 ## Recommended Contribution Flow
 
 1. **Keep PRs focused**: one concern per PR (for example: intent cues only, or one platform addition).
 2. **Synchronize route-related changes** across:
-   - `references/routing-manifest.json`
-   - `reference.md`
-   - affected `references/<topic>.md`
-   - `SKILL.md` when decision flow changes
-3. **Keep regex/table parity**: if `references/regex-patterns.md` changes, also update `references/platform-routing.md` (or vice versa) and explain why in the PR.
-4. **Add regression context**: note whether smoke checks in `references/test-cases.md` were reviewed; add new cases when behavior changes.
+   - `web3bio-skills/references/routing-manifest.json`
+   - `web3bio-skills/reference.md`
+   - affected `web3bio-skills/references/<topic>.md`
+   - `web3bio-skills/SKILL.md` when decision flow changes
+3. **Keep regex/table parity**: if `regex-patterns.md` changes, also update `platform-routing.md` (or vice versa) and explain why in the PR.
+4. **Add regression context**: note whether smoke checks in `test-cases.md` / `examples.md` were reviewed; add new cases when behavior changes.
+5. **Validate**: `npx skills-ref validate ./web3bio-skills`
 
 ## Documentation Style
 
@@ -32,7 +33,9 @@ Thanks for helping improve this skill repository. The project is primarily **Mar
 
 ## Reviewer Checklist
 
+- [ ] Skill lives under `web3bio-skills/` and `skills-ref validate` passes.
 - [ ] `x-api-key` appears only on the wallet route in docs and manifest.
 - [ ] `GET`-only and URL-encoding requirements remain intact.
-- [ ] Wallet strict shell-only output rule in `references/response-format.md` is unchanged.
-- [ ] New endpoints are added to both `reference.md` and `references/routing-manifest.json`.
+- [ ] Wallet strict shell-only output rule in `response-format.md` is unchanged.
+- [ ] New endpoints are added to both `reference.md` and `routing-manifest.json`.
+- [ ] README install commands still match Skills CLI behavior.
