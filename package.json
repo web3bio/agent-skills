@@ -1,0 +1,30 @@
+{
+  "name": "web3bio-skills",
+  "version": "1.0.1",
+  "description": "Agent skills for Web3.bio APIs: routing, auth boundaries, response shell, and progressive reference docs.",
+  "keywords": [
+    "web3bio",
+    "profile",
+    "credential",
+    "identity",
+    "web3-identity",
+    "agent-skill",
+    "web3domains",
+    "cursor"
+  ],
+  "skill": {
+    "entry": "SKILL.md",
+    "references_index": "reference.md",
+    "routing_manifest": "references/routing-manifest.json"
+  },
+  "author": {
+    "name": "Web3.bio",
+    "url": "https://web3.bio"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web3bio/agent-skills.git"
+  },
+  "homepage": "https://web3.bio"
+}
