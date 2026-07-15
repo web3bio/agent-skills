@@ -39,7 +39,8 @@ Only this call **must** include the header `x-api-key: <user-provided api-key>` 
 
 #### Other
 
-- **Do not** add `x-api-key` to endpoints not listed above; even if the user provided a key, calls to `credential`, `profile/...`, `ns/...`, `platform/`, etc. **omit** this header.
+- **Do not** add `x-api-key` to endpoints not listed above; even if the user provided a key, calls to `credential`, `avatar`, `domain`, `profile/...`, `ns/...`, `batch`, etc. **omit** this header.
+- Official docs may show `X-API-KEY: Bearer …` for optional rate-limit keys on public routes. **This skill** still forbids sending any API key except on `/wallet/{identity}`, and uses header name `x-api-key` with the raw key string the user provided (do not invent a `Bearer` prefix unless the user included it).
 
 ## Path and encoding
 

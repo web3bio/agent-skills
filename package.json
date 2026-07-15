@@ -1,11 +1,14 @@
 {
   "name": "web3bio-skills",
-  "version": "1.0.1",
-  "description": "Agent skills for Web3.bio APIs: routing, auth boundaries, response shell, and progressive reference docs.",
+  "version": "0.2.0",
+  "description": "Agent skills for Web3.bio APIs: profile, NS, credential, avatar, domain, batch, wallet routing and response shell.",
   "keywords": [
     "web3bio",
     "profile",
     "credential",
+    "avatar",
+    "domain",
+    "batch",
     "identity",
     "web3-identity",
     "agent-skill",

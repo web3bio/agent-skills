@@ -4,7 +4,7 @@ Instructions for AI coding agents working **in this repository** (not for end-us
 
 ## What this repo is
 
-A single **Agent Skill** for calling `https://api.web3.bio` (profiles, credentials, NS summaries, wallet). Source of truth order:
+A single **Agent Skill** for calling `https://api.web3.bio` (profiles, credentials, NS summaries, avatar, domain, batch, wallet). Source of truth order:
 
 1. [`references/routing-manifest.json`](references/routing-manifest.json)
 2. [`SKILL.md`](SKILL.md) (intent order, field extraction, response discipline)

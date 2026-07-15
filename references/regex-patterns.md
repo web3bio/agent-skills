@@ -41,3 +41,26 @@ export const REGEX = {
     /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi,
 };
 ```
+
+## `ROUTING_MATCH_ORDER`
+
+First `.test(identity)` win → URL / display `platform` (keep in sync with [platform-routing.md](platform-routing.md)):
+
+```ts
+export const ROUTING_MATCH_ORDER = [
+  ["BASENAMES", "basenames"],
+  ["LINEA", "linea"],
+  ["LENS", "lens"],
+  ["SNS", "sns"],
+  ["ENS", "ens"],
+  ["UNSTOPPABLE_DOMAINS", "unstoppabledomains"],
+  ["ETH_ADDRESS", "ethereum"],
+  ["SOLANA_ADDRESS", "solana"],
+  ["FARCASTER", "farcaster"],
+] as const;
+```
+
+**Notes**
+
+- `FARCASTER` is last because its pattern is broad; prefer explicit platform or domain suffixes when possible.
+- Batch queries only accept a subset of platforms—see [batch-identity.md](batch-identity.md).

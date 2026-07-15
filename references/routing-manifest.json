@@ -1,9 +1,16 @@
 {
-  "version": 3,
+  "version": 4,
   "base_url": "https://api.web3.bio",
   "method": "GET",
   "encoding": "encodeURIComponent(path segments)",
-  "order": ["credential", "wallet", "profile_flow"],
+  "order": [
+    "credential",
+    "wallet",
+    "avatar",
+    "domain",
+    "batch",
+    "profile_flow"
+  ],
   "key_request_line": "Please provide x-api-key (wallet endpoint only).",
   "key_policy": {
     "no_http_without_key": true,
@@ -11,8 +18,45 @@
     "next_message_first_non_empty_line_as_key": true
   },
   "routes": {
-    "credential": { "path": "credential/{identity}", "x_api_key": false, "response_platform": "none" },
-    "wallet": { "path": "wallet/{identity}", "x_api_key": true, "response_platform": "none", "strict_shell_only": true },
+    "credential": {
+      "path": "credential/{identity}",
+      "x_api_key": false,
+      "response_platform": "none"
+    },
+    "wallet": {
+      "path": "wallet/{identity}",
+      "x_api_key": true,
+      "response_platform": "none",
+      "strict_shell_only": true
+    },
+    "avatar": {
+      "path": "avatar/{identity}",
+      "x_api_key": false,
+      "response_platform": "none",
+      "prefer_location_header": true,
+      "do_not_download_bytes": true
+    },
+    "domain": {
+      "path": "domain/{identity}",
+      "x_api_key": false,
+      "response_platform": "none"
+    },
+    "batch": {
+      "full": "profile/batch/{ids}",
+      "ns": "ns/batch/{ids}",
+      "x_api_key": false,
+      "response_platform": "none",
+      "ids_format": "JSON array of \"platform,identity\" strings",
+      "max_items": 30,
+      "supported_platforms": [
+        "ethereum",
+        "ens",
+        "basenames",
+        "linea",
+        "farcaster",
+        "lens"
+      ]
+    },
     "profile_flow": {
       "single_full": "profile/{platform}/{identity}",
       "single_ns": "ns/{platform}/{identity}",

@@ -7,7 +7,7 @@
 
 ## When to use
 
-When the user wants data related to **credentials / credit / trust / trustworthiness**, use this endpoint **directly**; **do not** resolve `platform`, **do not** use Wallet, **do not** use universal/single-platform/NS profile combos, **do not** use [platform-routing.md](platform-routing.md).
+When the user wants data related to **credentials / credit / trust / trustworthiness**, use this endpoint **directly**; **do not** resolve `platform`, **do not** use Wallet, Avatar, Domain, Batch, or universal/single-platform/NS profile combos, **do not** use [platform-routing.md](platform-routing.md).
 
 ## Triggers (any one category)
 

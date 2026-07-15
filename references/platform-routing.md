@@ -18,3 +18,4 @@ When maintaining, align `ROUTING_MATCH_ORDER` (documented in the same file) with
 - **Single-platform URL**: user’s explicit platform (allow list) **wins** for the path; otherwise this table. If nothing matches → **do not** invent a single-platform URL.  
 - **Universal**: not in URL; display `platform：` still uses this table (see [response-format.md](response-format.md)).  
 - **Explicit platforms allowed** (lowercase): `ens`, `lens`, `farcaster`, `basenames`, `linea`, `ethereum`, `unstoppabledomains`, `sns`, `solana`.
+- **Batch** only accepts: `ethereum`, `ens`, `basenames`, `linea`, `farcaster`, `lens` — see [batch-identity.md](batch-identity.md).

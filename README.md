@@ -8,10 +8,13 @@ This repository provides **Agent Skills** for the Web3.bio APIs. It standardizes
 | ---------------------------- | ------------------------------------------------------- |
 | Credential / credit          | `GET credential/{identity}` (do not resolve `platform`) |
 | Wallet identity              | `GET wallet/{identity}` (**requires** `x-api-key`)      |
+| Avatar URL                   | `GET avatar/{identity}` (use `Location`; no image bytes) |
+| Domain metadata (WHOIS-style)| `GET domain/{identity}`                                 |
+| Batch full / NS              | `GET profile/batch/{ids}` · `GET ns/batch/{ids}`        |
 | Single-platform full profile | `GET profile/{platform}/{identity}`                     |
 | Single-platform NS brief     | `GET ns/{platform}/{identity}`                          |
 | Universal full profile       | `GET profile/{identity}`                                |
-| Universal NS                 | `GET ns/{identity}`                                     |                                        |
+| Universal NS                 | `GET ns/{identity}`                                     |
 
 - **Method**: all routes are `GET`; path segments must be URL-encoded (`encodeURIComponent`).
 - **Auth**: only the wallet route may include `x-api-key`; all other routes must omit it.
@@ -28,6 +31,7 @@ This repository provides **Agent Skills** for the Web3.bio APIs. It standardizes
 |- CONTRIBUTING.md          # Contribution and review checklist
 |- SECURITY.md              # Threat model and disclosure workflow
 |- CHANGELOG.md             # Versioned change history
+|- _meta.json               # Skill package metadata
 |- LICENSE                  # MIT
 |- references/              # Endpoint docs, intent cues, regex patterns, response format, test cases
 ```
@@ -43,6 +47,7 @@ This repository provides **Agent Skills** for the Web3.bio APIs. It standardizes
 | `CONTRIBUTING.md` | Human contributors   | PR flow and reviewer checklist                                   |
 | `SECURITY.md`     | Everyone             | Threat model and vulnerability reporting                         |
 | `CHANGELOG.md`    | Maintainers / users  | Versioned changes                                                |
+| `_meta.json`      | Tooling / installers | Name and version metadata                                        |
 
 ## Installation (Cursor and compatible clients)
 
@@ -64,9 +69,12 @@ The directory name can differ from the repository name, but `SKILL.md` must be a
 
 ## Routing Workflow (First Match Wins)
 
-1. **Credential** -> `GET credential/{identity}`
-2. **Wallet** -> `GET wallet/{identity}` (without key: output only the fixed key-request line and do not call)
-3. **Profile branch** -> choose universal vs NS and single-platform vs universal using intent + `platform-routing` / `references/regex-patterns.md`
+1. **Credential** → `GET credential/{identity}`
+2. **Wallet** → `GET wallet/{identity}` (without key: output only the fixed key-request line and do not call)
+3. **Avatar** → `GET avatar/{identity}` (report `Location` URL; do not download image bytes)
+4. **Domain** → `GET domain/{identity}`
+5. **Batch** → `GET profile/batch/{ids}` or `GET ns/batch/{ids}`
+6. **Profile branch** → universal vs NS and single-platform vs universal using intent + `platform-routing` / `references/regex-patterns.md`
 
 Intent and anti-intent cues are documented in `references/intent-cues.md`.
 
@@ -77,6 +85,8 @@ Intent and anti-intent cues are documented in `references/intent-cues.md`.
 | Wallet request targets a non-Web3.bio host       | Only `https://api.web3.bio` is allowed (see `SECURITY.md`)    |
 | Wallet call attempted without key                | Forbidden; output only the fixed one-line key request         |
 | `x-api-key` used on credential/profile/ns routes | Forbidden; remove the header                                  |
+| Avatar reply contains image binary               | Forbidden; use `Location` / redirect URL only                 |
+| Batch platform unsupported (e.g. solana)         | Exclude from batch; use single-identity profile flow          |
 | Universal response `platform:` is unclear        | Use first match in `platform-routing.md`, else `none`         |
 | Single-platform URL cannot determine platform    | Do not fabricate; ask for clarification or use universal flow |
 | Routing behavior uncertain after edits           | Run smoke scenarios from `references/test-cases.md`           |
