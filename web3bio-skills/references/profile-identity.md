@@ -6,7 +6,8 @@
 | **When to use** | Universal and not NS; path has **only** `profile` and `identity`, **no** `platform` segment. |
 | **Path** | `profile/{identity}` |
 
-**Display `platform：`**: not in URL; fill from routing-table match → [response-format.md](response-format.md) + [platform-routing.md](platform-routing.md).  
+**Summary `Platform` row**: not in the URL; fill from the routing-table match → [response-format.md](response-format.md) + [platform-routing.md](platform-routing.md).
+
 **Request**: [request-conventions.md](request-conventions.md)
 
 ```bash

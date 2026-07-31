@@ -11,7 +11,7 @@ license: MIT
 compatibility: Requires network access to https://api.web3.bio. Wallet route needs a user-provided x-api-key.
 metadata:
   author: web3bio
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # Web3.bio Skills
@@ -42,10 +42,10 @@ Triggers: [references/intent-cues.md](references/intent-cues.md). Examples: [exa
 - Base URL **only** `https://api.web3.bio`. All `GET`. Encode path segments.
 - Send `x-api-key` **only** on `wallet/{identity}`. Never echo or commit keys.
 - Prefer [references/routing-manifest.json](references/routing-manifest.json) as machine-readable source of truth.
-- For auth session rules, response shell, or endpoint details, open [reference.md](reference.md) and then **only** the needed page—do not load every reference file.
+- For auth session rules, result presentation, or endpoint details, open [reference.md](reference.md) and then **only** the needed page—do not load every reference file.
 
 ## Response discipline
 
 - Output per [references/response-format.md](references/response-format.md).
 - Wallet without key: only `Please provide x-api-key (wallet endpoint only).`
-- After wallet call with key: shell only (no extra prose).
+- After a wallet call with a key: output only the standard result card and complete response; add no prose before or after it.

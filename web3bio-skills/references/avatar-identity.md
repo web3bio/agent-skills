@@ -19,14 +19,14 @@ Same primary-id extraction as profile. **Do not** put `platform` in the URL. The
 
 - Issue `GET` **without** following the redirect into a binary download when possible.
 - The API typically responds with **`307`** and a **`Location`** header whose value is the avatar URL (e.g. `https://euc.li/sujiyan.eth`).
-- Put that URL string in the response shell body (`text` fence). **Do not** download, decode, or embed image bytes in the reply.
+- Show a safe link in the result-card summary and put the URL string under `### Avatar URL` in a `text` fence. **Do not** download, decode, or embed image bytes in the reply.
 - If the tool only returns a final URL after redirect (and no body), use that URL the same way.
 - If there is no usable `Location` / URL, put the raw status and headers or error body in a `text` fence.
 
 ## Request and response
 
 - **Request**: [request-conventions.md](request-conventions.md) (`GET`, `encodeURIComponent`, no auth).
-- **Response**: [response-format.md](response-format.md). For this endpoint **`platform：` is always `none`**.
+- **Response**: [response-format.md](response-format.md). Do not infer or display a request platform for this endpoint.
 
 ```bash
 # Prefer header-only; do not pipe image bytes into chat

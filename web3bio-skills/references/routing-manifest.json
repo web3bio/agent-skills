@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "base_url": "https://api.web3.bio",
   "method": "GET",
   "encoding": "encodeURIComponent(path segments)",
@@ -17,35 +17,43 @@
     "single_line_only": true,
     "next_message_first_non_empty_line_as_key": true
   },
+  "response": {
+    "presentation": "markdown_result_card",
+    "summary_max_rows": 8,
+    "complete_payload_required": true,
+    "valid_json_fence": "json",
+    "non_json_fence": "text",
+    "allow_html": false
+  },
   "routes": {
     "credential": {
       "path": "credential/{identity}",
       "x_api_key": false,
-      "response_platform": "none"
+      "response_platform": "omit"
     },
     "wallet": {
       "path": "wallet/{identity}",
       "x_api_key": true,
-      "response_platform": "none",
-      "strict_shell_only": true
+      "response_platform": "omit",
+      "strict_result_card_only": true
     },
     "avatar": {
       "path": "avatar/{identity}",
       "x_api_key": false,
-      "response_platform": "none",
+      "response_platform": "omit",
       "prefer_location_header": true,
       "do_not_download_bytes": true
     },
     "domain": {
       "path": "domain/{identity}",
       "x_api_key": false,
-      "response_platform": "none"
+      "response_platform": "omit"
     },
     "batch": {
       "full": "profile/batch/{ids}",
       "ns": "ns/batch/{ids}",
       "x_api_key": false,
-      "response_platform": "none",
+      "response_platform": "omit",
       "ids_format": "JSON array of \"platform,identity\" strings",
       "max_items": 30,
       "supported_platforms": [

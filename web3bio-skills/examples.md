@@ -13,17 +13,35 @@ Concrete install-to-use paths. Paths are relative to `https://api.web3.bio`.
 | `Batch: vitalik.eth and stani.lens` | `GET /profile/batch/{ids}` with `["ens,vitalik.eth","lens,stani.lens"]` |
 | `Wallet identity for sujiyan.eth` | Ask for key line, then `GET /wallet/sujiyan.eth` |
 
-## Response shell (abbreviated)
+## Result card (abbreviated)
 
-```text
-identity：sujiyan.eth
-platform：ens
-Request result：
+Actual output must include the complete, unabridged API body; this example shows the presentation order only.
 
-{ JSON or text body in a fenced code block }
+~~~markdown
+## sujiyan.eth
+
+**Web3.bio · Profile**
+
+| Field | Value |
+|---|---|
+| Identity | `sujiyan.eth` |
+| Platform | `ens` |
+| Address | `0x1234…abcd` |
+| Avatar | [Open avatar](https://example.com/avatar.png) |
+
+### Complete JSON
+
+```json
+{
+  "identity": "sujiyan.eth",
+  "address": "0x1234567890abcdef"
+}
 ```
+~~~
 
-Avatar success: `platform：` is `none`; body is a `text` fence with the URL only.
+Do not use the example values as API facts. Show only returned fields, and never abbreviate the complete JSON.
+
+Avatar success uses the same heading/subtitle style, omits inferred platform, and ends with `### Avatar URL` plus a `text` fence containing the URL.
 
 ## Curl smoke (optional human check)
 

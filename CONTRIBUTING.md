@@ -28,7 +28,7 @@ Thanks for helping improve this skill repository. The project is primarily **Mar
 
 ## Behavioral Changes vs Editorial Changes
 
-- **Behavioral changes** (routing, auth, response shell, key request wording): mark as **BREAKING** or **agent-visible** in the PR and update `CHANGELOG.md`.
+- **Behavioral changes** (routing, auth, result presentation, key request wording): mark as **BREAKING** or **agent-visible** in the PR and update `CHANGELOG.md`.
 - **Editorial changes** (typos, links, wording): regular docs updates are fine.
 
 ## Reviewer Checklist
@@ -36,6 +36,6 @@ Thanks for helping improve this skill repository. The project is primarily **Mar
 - [ ] Skill lives under `web3bio-skills/` and `skills-ref validate` passes.
 - [ ] `x-api-key` appears only on the wallet route in docs and manifest.
 - [ ] `GET`-only and URL-encoding requirements remain intact.
-- [ ] Wallet strict shell-only output rule in `response-format.md` is unchanged.
+- [ ] Wallet strict result-card-only output rule in `response-format.md` is unchanged.
 - [ ] New endpoints are added to both `reference.md` and `routing-manifest.json`.
 - [ ] README install commands still match Skills CLI behavior.

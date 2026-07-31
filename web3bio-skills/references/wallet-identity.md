@@ -19,9 +19,9 @@ Without a key: only output the single key request line from [request-conventions
 ## Request and response
 
 - Request rules: [request-conventions.md](request-conventions.md).
-- Response shell: [response-format.md](response-format.md).
-- For this endpoint `platform：` is always `none`; `identity：` is the `{identity}` in the path.
-- After a request with key, only shell + body regardless of outcome; zero explanation outside the shell.
+- Result presentation: [response-format.md](response-format.md).
+- Use the `{identity}` path value in the summary and do not infer a request platform.
+- After a request with a key, output only the standard result card plus complete response regardless of outcome; add zero explanation outside the card.
 
 ```bash
 curl -sS -H "Accept: application/json" -H "x-api-key: <user-provided key>" \

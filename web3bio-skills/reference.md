@@ -12,7 +12,7 @@
 |------|------|
 | Routing manifest | [references/routing-manifest.json](references/routing-manifest.json) |
 | Requests / `x-api-key` | [references/request-conventions.md](references/request-conventions.md) |
-| Response shell | [references/response-format.md](references/response-format.md) |
+| Result presentation | [references/response-format.md](references/response-format.md) |
 | Platform routing table | [references/platform-routing.md](references/platform-routing.md) |
 | Regex + `ROUTING_MATCH_ORDER` | [references/regex-patterns.md](references/regex-patterns.md) |
 | Intent triggers | [references/intent-cues.md](references/intent-cues.md) |
