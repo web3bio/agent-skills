@@ -19,7 +19,10 @@
   },
   "response": {
     "presentation": "markdown_result_card",
+    "show_subtitle": false,
     "summary_max_rows": 8,
+    "linked_identity_profile_url": "https://web3.bio/{identity}",
+    "encode_linked_identity_path_segment": true,
     "complete_payload_required": true,
     "valid_json_fence": "json",
     "non_json_fence": "text",

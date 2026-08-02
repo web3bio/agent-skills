@@ -20,14 +20,18 @@ Actual output must include the complete, unabridged API body; this example shows
 ~~~markdown
 ## sujiyan.eth
 
-**Web3.bio · Profile**
-
 | Field | Value |
 |---|---|
 | Identity | `sujiyan.eth` |
 | Platform | `ens` |
 | Address | `0x1234…abcd` |
 | Avatar | [Open avatar](https://example.com/avatar.png) |
+
+### Linked identities
+
+| Identity | Platform | Display name | Profile |
+|---|---|---|---|
+| `sujiyan.eth` | `ens` | sujiyan.eth | [View profile](https://web3.bio/sujiyan.eth) |
 
 ### Complete JSON
 
@@ -41,7 +45,7 @@ Actual output must include the complete, unabridged API body; this example shows
 
 Do not use the example values as API facts. Show only returned fields, and never abbreviate the complete JSON.
 
-Avatar success uses the same heading/subtitle style, omits inferred platform, and ends with `### Avatar URL` plus a `text` fence containing the URL.
+Avatar success uses the same heading style, omits inferred platform, and ends with `### Avatar URL` plus a `text` fence containing the URL.
 
 ## Curl smoke (optional human check)
 
