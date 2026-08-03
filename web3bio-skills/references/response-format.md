@@ -14,23 +14,15 @@ For every completed HTTP call under this skill, output one portable Markdown res
 
 Use this shape:
 
-~~~markdown
+```markdown
 ## <identity>
 
-| Field | Value |
-|---|---|
-| Identity | `<queried identity>` |
-| Platform | `<platform when applicable>` |
+| Field             | Value                               |
+| ----------------- | ----------------------------------- |
+| Identity          | `<queried identity>`                |
+| Platform          | `<platform when applicable>`        |
 | <important field> | <exact returned value or safe link> |
-
-### Complete JSON
-
-```json
-{
-  "all": "API fields, without omissions"
-}
 ```
-~~~
 
 Do not output the literal placeholders above.
 
