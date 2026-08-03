@@ -36,8 +36,9 @@ Example array before encoding:
 
 - **Request**: [request-conventions.md](request-conventions.md) (`GET`, no auth).
 - **Response**: [response-format.md](response-format.md).
-  - `identity：` — comma-separated list of the batch query ids (the `"platform,identity"` strings), or `batch` if too long.
-  - `platform：` — always `none`.
+  - Use the batch heading and one compact summary row per requested `"platform,identity"` item.
+  - Do not infer or display one batch-level platform.
+  - End with the complete, unabridged JSON response.
 
 ```bash
 curl -sS "https://api.web3.bio/profile/batch/$(python3 -c 'import urllib.parse; print(urllib.parse.quote("[\"ens,vitalik.eth\",\"lens,stani.lens\"]", safe=""))')"

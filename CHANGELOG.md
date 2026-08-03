@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.0 — 2026-07-31
+
+### Agent-visible
+
+- Replaced the fixed `identity：` / `platform：` / `Request result：` shell with a portable Markdown result card.
+- Added endpoint-aware summaries while preserving one complete JSON/text response block for copying.
+- Removed the result-type subtitle and added clickable `https://web3.bio/{identity}` links to linked-identity tables.
+- Added explicit no-invention, no-HTML, no-silent-truncation, and API-key redaction rules.
+- Preserved strict Wallet output boundaries and Avatar URL-only handling.
+- Bumped the routing manifest to version 5 and synchronized examples and regression cases.
+
 ## 0.3.0 — 2026-07-15
 
 ### Agent-visible / packaging

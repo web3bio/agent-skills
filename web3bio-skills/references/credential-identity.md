@@ -22,7 +22,7 @@ Same primary-id extraction as profile (`trim` or tokenize, strip `@`/punctuation
 ## Request and response
 
 - **Request**: [request-conventions.md](request-conventions.md) (`GET`, `encodeURIComponent`, no auth).  
-- **Response**: [response-format.md](response-format.md). For this endpoint **`platform：` is always `none`**.
+- **Response**: [response-format.md](response-format.md). Do not infer a request platform for this endpoint; omit the summary `Platform` row unless the payload explicitly contains useful returned platform data.
 
 ```bash
 curl -sS "https://api.web3.bio/credential/sujiyan.eth"
